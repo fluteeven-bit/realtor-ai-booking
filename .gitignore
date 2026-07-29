@@ -14,3 +14,10 @@ data/outbox/
 .DS_Store
 Thumbs.db
 npm-debug.log*
+
+.vercel
+.env*
+
+.agents/
+.claude/
+skills-lock.json

@@ -1,10 +1,15 @@
 import crypto from "node:crypto";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { Redis } from "@upstash/redis";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DATABASE_FILE = path.join(DATA_DIR, "appointments.json");
-const SEED_FILE = path.join(DATA_DIR, "appointments.seed.json");
+const SEED_FILE = path.join(process.cwd(), "data", "appointments.seed.json");
+const REDIS_KEY = "appointments";
+
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL!,
+  token: process.env.KV_REST_API_TOKEN!
+});
 
 export type AppointmentStatus = "confirmed" | "completed" | "cancelled";
 
@@ -42,26 +47,22 @@ function withLock<T>(operation: () => Promise<T>) {
   return run;
 }
 
-async function readJson(file: string): Promise<Appointment[]> {
-  const raw = await fs.readFile(file, "utf8");
+async function readSeed(): Promise<Appointment[]> {
+  const raw = await fs.readFile(SEED_FILE, "utf8");
   const parsed = JSON.parse(raw);
   return Array.isArray(parsed) ? (parsed as Appointment[]) : [];
 }
 
 export async function readAppointments(): Promise<Appointment[]> {
-  try {
-    return await readJson(DATABASE_FILE);
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    return readJson(SEED_FILE);
-  }
+  const rows = await redis.get<Appointment[]>(REDIS_KEY);
+  if (rows) return rows;
+  const seeded = await readSeed();
+  await redis.set(REDIS_KEY, seeded);
+  return seeded;
 }
 
 async function writeAppointments(rows: Appointment[]) {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  const temporary = `${DATABASE_FILE}.${process.pid}.tmp`;
-  await fs.writeFile(temporary, `${JSON.stringify(rows, null, 2)}\n`, "utf8");
-  await fs.rename(temporary, DATABASE_FILE);
+  await redis.set(REDIS_KEY, rows);
 }
 
 export async function bookedSlots() {
@@ -119,10 +120,6 @@ export async function updateAppointmentStatus(id: string, status: AppointmentSta
 
 export async function resetDemoAppointments() {
   return withLock(async () => {
-    try {
-      await fs.unlink(DATABASE_FILE);
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    }
+    await redis.del(REDIS_KEY);
   });
 }
