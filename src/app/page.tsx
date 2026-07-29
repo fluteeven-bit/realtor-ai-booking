@@ -5,9 +5,9 @@ import Topbar from "@/app/_components/Topbar";
 import { PROFILE } from "@/lib/profile";
 
 export const metadata: Metadata = {
-  title: "張裕志｜新北市房仲推薦・資產配置專家｜全台第一名",
+  title: "張裕志｜新北市房仲推薦・資產配置專家",
   description:
-    "張裕志，中信房屋幸福店資產配置專家，全台第一名頂尖業績、單月百萬經紀人實力認證，深耕新北市在地市場動態。提供資產配置、稅務諮詢、簡易裝潢一站式服務，歡迎加LINE預約諮詢。",
+    "張裕志，中信房屋幸福店資產配置專家，單月百萬經紀人實力認證，深耕新北市在地市場動態。提供資產配置、稅務諮詢、簡易裝潢一站式服務，歡迎加LINE預約諮詢。",
   keywords: [
     "新北市房仲推薦",
     "資產配置專家",
@@ -17,13 +17,12 @@ export const metadata: Metadata = {
     "稅務諮詢",
     "新北買房",
     "新北賣房",
-    "單月百萬經紀人",
-    "全台第一名房仲"
+    "單月百萬經紀人"
   ],
   robots: { index: true, follow: true },
   openGraph: {
     title: "張裕志｜新北市房仲推薦・資產配置專家",
-    description: "全台第一名頂尖房仲，單月百萬經紀人實力認證。深耕新北市在地市場，提供資產配置、稅務諮詢、簡易裝潢一站式服務。",
+    description: "單月百萬經紀人實力認證。深耕新北市在地市場，提供資產配置、稅務諮詢、簡易裝潢一站式服務。",
     images: [PROFILE.photoUrl]
   }
 };
@@ -64,8 +63,7 @@ export default function HomePage() {
               <h1>{PROFILE.name}</h1>
               <p className="profile-tagline">深耕新北市・資產配置專家</p>
               <div className="profile-badges">
-                <span className="profile-badge gold">全台第一名</span>
-                <span className="profile-badge">單月百萬經紀人</span>
+                <span className="profile-badge gold">單月百萬經紀人</span>
               </div>
               <p className="profile-credential">
                 現任{" "}
@@ -96,19 +94,15 @@ export default function HomePage() {
 
         <section className="profile-section profile-section-dark">
           <p className="profile-section-eyebrow light">ACHIEVEMENTS</p>
-          <h2>我的戰績｜全台第一名頂尖房仲</h2>
+          <h2>我的戰績</h2>
           <div className="profile-stats">
-            <div className="profile-stat">
-              <span className="profile-stat-number">全台No.1</span>
-              <span className="profile-stat-label">業績全台第一名</span>
-            </div>
             <div className="profile-stat">
               <span className="profile-stat-number">單月百萬</span>
               <span className="profile-stat-label">百萬經紀人實力認證</span>
             </div>
           </div>
           <p className="profile-stats-note">
-            榮獲全台第一名頂尖房仲殊榮，並以單月百萬經紀人實力屢創佳績，是客戶信任與託付所累積的專業公信力。
+            以單月百萬經紀人實力屢創佳績，是客戶信任與託付所累積的專業公信力。
           </p>
         </section>
 

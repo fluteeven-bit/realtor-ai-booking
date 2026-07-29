@@ -1051,7 +1051,8 @@ a {
 
 .profile-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 240px));
+  justify-content: center;
   gap: 16px;
   margin-bottom: 24px;
 }
