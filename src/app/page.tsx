@@ -5,15 +5,18 @@ import Topbar from "@/app/_components/Topbar";
 import { PROFILE } from "@/lib/profile";
 
 export const metadata: Metadata = {
-  title: "張裕志｜新北市房仲推薦・資產配置專家",
+  title: "張裕志｜雙北市房仲推薦・資產配置專家",
   description:
-    "張裕志，中信房屋幸福店資產配置專家，單月百萬經紀人實力認證，深耕新北市在地市場動態。提供資產配置、稅務諮詢、簡易裝潢一站式服務，歡迎加LINE預約諮詢。",
+    "張裕志，志會買好房創辦人，資產配置專家，單月百萬經紀人實力認證，長期深耕雙北市在地市場動態。提供資產配置、稅務諮詢、簡易裝潢一站式服務，歡迎加LINE預約諮詢。",
   keywords: [
+    "雙北房仲推薦",
     "新北市房仲推薦",
+    "台北市房仲推薦",
     "資產配置專家",
     "新北市房仲",
-    "中信房屋",
+    "台北市房仲",
     "張裕志",
+    "志會買好房",
     "稅務諮詢",
     "新北買房",
     "新北賣房",
@@ -21,8 +24,8 @@ export const metadata: Metadata = {
   ],
   robots: { index: true, follow: true },
   openGraph: {
-    title: "張裕志｜新北市房仲推薦・資產配置專家",
-    description: "單月百萬經紀人實力認證。深耕新北市在地市場，提供資產配置、稅務諮詢、簡易裝潢一站式服務。",
+    title: "張裕志｜雙北市房仲推薦・資產配置專家",
+    description: "單月百萬經紀人實力認證。長期深耕雙北市在地市場，提供資產配置、稅務諮詢、簡易裝潢一站式服務。",
     images: [PROFILE.photoUrl]
   }
 };
@@ -52,16 +55,16 @@ export default function HomePage() {
             <div className="profile-hero-photo">
               <Image
                 src={PROFILE.photoUrl}
-                alt={`${PROFILE.name} - 新北市房仲推薦 資產配置專家`}
+                alt={`${PROFILE.name} - 雙北市房仲推薦 資產配置專家`}
                 width={220}
                 height={220}
                 priority
               />
             </div>
             <div className="profile-hero-copy">
-              <p className="profile-eyebrow">中信房屋幸福店 專業房仲｜新北市房仲推薦首選</p>
+              <p className="profile-eyebrow">新北市房產顧問｜雙北市房仲推薦首選</p>
               <h1>{PROFILE.name}</h1>
-              <p className="profile-tagline">深耕新北市・資產配置專家</p>
+              <p className="profile-tagline">長期深耕雙北市・資產配置專家</p>
               <div className="profile-badges">
                 <span className="profile-badge gold">單月百萬經紀人</span>
               </div>
@@ -83,11 +86,11 @@ export default function HomePage() {
 
         <section className="profile-section">
           <p className="profile-section-eyebrow">SERVICE AREA</p>
-          <h2>服務區域｜新北市房仲推薦首選</h2>
+          <h2>服務區域｜雙北市房仲推薦首選</h2>
           <div className="profile-area-card">
-            <h3>深耕新北市・在地市場動態專家</h3>
+            <h3>長期深耕雙北市・在地市場動態專家</h3>
             <p>
-              長期深耕新北市，每日緊盯區域行情、成交案例與生活機能變化，對各區供需脈動、公共建設進度瞭若指掌。無論是購屋自住、置產投資或換屋規劃，都能提供最即時、最貼近在地市場動態的專業建議。
+              長期深耕雙北市（新北市、台北市），每日緊盯區域行情、成交案例與生活機能變化，對各區供需脈動、公共建設進度瞭若指掌。無論是購屋自住、置產投資或換屋規劃，都能提供最即時、最貼近在地市場動態的專業建議。
             </p>
           </div>
         </section>
