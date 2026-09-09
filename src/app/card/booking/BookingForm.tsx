@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { INTENTS, MEET_TYPES, URGENCIES, type OpenDay } from "@/lib/booking";
+import { PROFILE } from "@/lib/profile";
 
 type SubmissionResult = {
   id: string;
@@ -10,7 +11,9 @@ type SubmissionResult = {
   previewFile: string | null;
 };
 
-export default function BookingForm() {
+export default function BookingForm({ embedded = false }: { embedded?: boolean } = {}) {
+  // embedded = 嵌在首頁裡用：不包 <main>、不放 <h1>，避免跟首頁的標題打架
+  const Shell = (embedded ? "div" : "main") as "div" | "main";
   const [days, setDays] = useState<OpenDay[]>([]);
   const [activeDate, setActiveDate] = useState("");
   const [slotIso, setSlotIso] = useState("");
@@ -103,11 +106,11 @@ export default function BookingForm() {
 
   if (result) {
     return (
-      <main className="booking-shell">
+      <Shell className="booking-shell">
         <div className="page-heading">
-          <Link href="/card">回電子名片</Link>
-          <h1>預約完成</h1>
-          <p>資料已寫入本機預約後台，課堂版不會真的寄信或通知客戶。</p>
+          {embedded ? null : <Link href="/card">回電子名片</Link>}
+          {embedded ? <h2>預約完成</h2> : <h1>預約完成</h1>}
+          <p>已收到您的預約，我會在營業時間內親自與您聯繫確認。急件請直接來電 {PROFILE.phone}。</p>
         </div>
         <div className="form-success">
           <strong>已保留時段：</strong>
@@ -115,28 +118,19 @@ export default function BookingForm() {
           {result.slotLabel}
         </div>
         <div className="choice-row">
-          <Link className="button" href="/admin/appointments">查看預約後台</Link>
-          {result.previewFile ? (
-            <a
-              className="button-secondary"
-              href={`/api/appointment/preview?file=${encodeURIComponent(result.previewFile)}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              查看確認信預覽
-            </a>
-          ) : null}
+          <a className="button" href={PROFILE.social.line} target="_blank" rel="noreferrer">加 LINE 快速聯繫</a>
+          <a className="button-secondary" href={`tel:${PROFILE.phoneRaw}`}>直接來電</a>
         </div>
-      </main>
+      </Shell>
     );
   }
 
   return (
-    <main className="booking-shell">
+    <Shell className="booking-shell">
       <div className="page-heading">
-        <Link href="/card">回電子名片</Link>
-        <h1>線上預約諮詢</h1>
-        <p>選一個方便的時段，留下你想處理的問題，房仲會依需求先做準備。</p>
+        {embedded ? null : <Link href="/card">回電子名片</Link>}
+        {embedded ? null : <h1>線上預約諮詢</h1>}
+        <p>選一個方便的時段，留下您想處理的問題，我會依您的需求先做好準備。</p>
       </div>
 
       <form onSubmit={submit}>
@@ -269,7 +263,7 @@ export default function BookingForm() {
               id="note"
               maxLength={2000}
               onChange={(event) => setNote(event.target.value)}
-              placeholder="例如：預算 1,600 萬，想找西屯兩房含車位，希望三個月內入住。"
+              placeholder="例如：預算 1,600 萬，想找新莊兩房含車位，希望三個月內入住。"
               value={note}
             />
           </div>
@@ -279,8 +273,8 @@ export default function BookingForm() {
         <button className="button booking-submit" disabled={submitting} type="submit">
           {submitting ? "正在建立預約..." : "確認預約"}
         </button>
-        <p className="privacy-note">教學模式：資料只存在這個專案資料夾，不會傳到外部服務。</p>
+        <p className="privacy-note">您留下的資料僅用於本次預約聯繫，不會提供給第三方。</p>
       </form>
-    </main>
+    </Shell>
   );
 }

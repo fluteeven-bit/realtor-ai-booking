@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Topbar from "@/app/_components/Topbar";
+import BookingForm from "@/app/card/booking/BookingForm";
 import { PROFILE } from "@/lib/profile";
 
 export const metadata: Metadata = {
@@ -127,6 +128,24 @@ export default function HomePage() {
                 <p>{service.text}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="profile-section" id="booking">
+          <p className="profile-section-eyebrow">BOOKING</p>
+          <h2>預約諮詢</h2>
+          <p>
+            選一個您方便的時段，留下聯絡方式與需求，我會親自與您聯繫。
+            也歡迎直接加 LINE 或來電快速諮詢。
+          </p>
+          <BookingForm embedded />
+          <div className="choice-row">
+            <a className="button" href={PROFILE.social.line} target="_blank" rel="noreferrer">
+              加 LINE 好友：{PROFILE.phone}
+            </a>
+            <a className="button-secondary" href={`tel:${PROFILE.phoneRaw}`}>
+              直接來電：{PROFILE.phone}
+            </a>
           </div>
         </section>
       </main>

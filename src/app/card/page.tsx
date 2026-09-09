@@ -1,7 +1,19 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Topbar from "@/app/_components/Topbar";
 import { PROFILE } from "@/lib/profile";
+
+// 這頁會被傳到 LINE / 印在名片 QR code 上,標題與縮圖要正確
+export const metadata: Metadata = {
+  title: "張裕志 電子名片｜志會買好房・雙北市房產顧問",
+  description: "張裕志 · 志會買好房。雙北市房產顧問,提供資產配置、稅務諮詢、簡易裝潢一站式服務。可直接線上預約諮詢。",
+  openGraph: {
+    title: "張裕志 電子名片｜志會買好房",
+    description: "雙北市房產顧問 · 單月百萬經紀人。線上預約諮詢。",
+    images: [PROFILE.photoUrl]
+  }
+};
 
 function ContactRow({ symbol, value, href, external }: { symbol: string; value: string; href?: string; external?: boolean }) {
   const content = (
